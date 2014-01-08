@@ -19,4 +19,8 @@ class Race {
         cost(min: 0.0, max: 100.0)
         maxRunners(min: 0, max: 100000)
     }
+
+    def inMiles() {
+      distance * 0.6214
+    }
 }
