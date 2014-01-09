@@ -20,6 +20,8 @@ class Race {
         maxRunners(min: 0, max: 100000)
     }
 
+    static hasMany = [registrations: Registration]
+
     def inMiles() {
       distance * 0.6214
     }
