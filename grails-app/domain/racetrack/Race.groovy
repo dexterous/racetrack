@@ -25,4 +25,8 @@ class Race {
     def inMiles() {
       distance * 0.6214
     }
+
+    String toString() {
+      "$name, ${startDate?.format('MM/dd/yyyy')}"
+    }
 }
