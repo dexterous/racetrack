@@ -594,3 +594,22 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+/* RaceTrack Customization */
+#header {
+	background: #abbf78;
+  padding: 2em 1em 2em 1em;
+  margin-bottom: 1em;
+}
+
+a.header-main:link, a.header-main:visited {
+  color: #fff;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.header-sub {
+  color: #fff;
+  font-size: 1.25em;
+  font-style: italic;
+}
