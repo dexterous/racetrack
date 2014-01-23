@@ -21,6 +21,7 @@ class UserControllerSpec extends Specification {
         given:"A user in the system"
         def user = new User(login: 'jdoe', password: 'password')
         user.save(flush: true)
+        mockCodec(SHACodec)
 
         when:"The authenticate action is executed with valid credentials"
         params.login = 'jdoe'
@@ -41,6 +42,7 @@ class UserControllerSpec extends Specification {
         given:"A user in the system"
         def user = new User(login: 'jdoe', password: 'password')
         user.save(flush: true)
+        mockCodec(SHACodec)
 
         when:"The authenticate action is executed with invalid credentials"
         params.login = 'jdoe'
