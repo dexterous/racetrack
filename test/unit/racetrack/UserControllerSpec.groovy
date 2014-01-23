@@ -17,8 +17,47 @@ class UserControllerSpec extends Specification {
         params['password'] = 'test-password'
     }
 
-    void "Test the index action returns the correct model"() {
+    void "Test the authenticate action adds user to session"() {
+        given:"A user in the system"
+        def user = new User(login: 'jdoe', password: 'password')
+        user.save(flush: true)
 
+        when:"The authenticate action is executed with valid credentials"
+        params.login = 'jdoe'
+        params.password = 'password'
+        controller.authenticate()
+
+        then:"A redirect is issued to the race controller"
+        response.redirectedUrl == '/race/index'
+
+        and:"The authenticated user is added to the session"
+        session.user == user
+
+        and:"An appropriate flash message is sent"
+        flash.message == 'default.login.succeeded.message'
+    }
+
+    void "Test the authenticate action does not add user with invalid creds to session"() {
+        given:"A user in the system"
+        def user = new User(login: 'jdoe', password: 'password')
+        user.save(flush: true)
+
+        when:"The authenticate action is executed with invalid credentials"
+        params.login = 'jdoe'
+        params.password = 'blah'
+        controller.authenticate()
+
+        then:"A redirect is issued to the race controller"
+        response.redirectedUrl == '/user/login'
+
+        and:"The user is not added to the session"
+        session.user == null
+
+        and:"An appropriate flash message is sent"
+        flash.message == 'default.login.failed.message'
+    }
+
+    void "Test the index action returns the correct model"() {
         when:"The index action is executed"
             controller.index()
 
@@ -55,7 +94,7 @@ class UserControllerSpec extends Specification {
 
         then:"A redirect is issued to the show action"
             response.redirectedUrl == '/user/show/1'
-            controller.flash.message != null
+            flash.message != null
             User.count() == 1
     }
 
