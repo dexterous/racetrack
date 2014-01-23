@@ -10,6 +10,27 @@ class UserController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def login() {}
+
+    def authenticate() {
+        def user = User.findByLoginAndPassword(params.login, params.password)
+
+        if(user) {
+            session.user = user
+            flash.message = message code: 'default.login.succeeded.message', args: [user.login]
+            redirect controller: 'race', action: 'index'
+        } else {
+            flash.message = message code: 'default.login.failed.message', args: [params.login]
+            redirect action: 'login'
+        }
+    }
+
+    def logout() {
+        flash.message = message code: 'default.logout.message', args: [session.user.login]
+        session.user = null
+        redirect action: 'login'
+    }
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model:[userInstanceCount: User.count()]
