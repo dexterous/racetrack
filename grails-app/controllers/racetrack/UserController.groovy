@@ -31,7 +31,7 @@ class UserController {
         }
 
         if (userInstance.hasErrors()) {
-            respond userInstance.errors, view:'create'
+            respond userInstance, view:'create'
             return
         }
 
@@ -58,7 +58,7 @@ class UserController {
         }
 
         if (userInstance.hasErrors()) {
-            respond view:'edit'
+            respond userInstance, view:'edit'
             return
         }
 
