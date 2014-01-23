@@ -10,6 +10,21 @@ class UserController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def beforeInterceptor = [action: this.&auth, except: ['login', 'logout', 'authenticate']]
+
+    private auth() {
+        if(!session.user) {
+            redirect action: 'login'
+            return false
+        }
+
+        if(!session.user.admin) {
+            flash.message = 'Tsk tsk-admins only'
+            redirect controller: 'race', action: 'index'
+            return false
+        }
+    }
+
     def login() {}
 
     def authenticate() {
