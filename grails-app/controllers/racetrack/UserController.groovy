@@ -33,7 +33,7 @@ class UserController {
         if(user) {
             session.user = user
             flash.message = message code: 'default.login.succeeded.message', args: [user.login]
-            redirect controller: 'race', action: 'index'
+            redirect controller: user.admin ? 'admin' : 'race', action: 'index'
         } else {
             flash.message = message code: 'default.login.failed.message', args: [params.login]
             redirect action: 'login'
