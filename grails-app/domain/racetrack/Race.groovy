@@ -22,6 +22,8 @@ class Race {
 
     static hasMany = [registrations: Registration]
 
+    static searchable = true
+
     def inMiles() {
       distance * 0.6214
     }

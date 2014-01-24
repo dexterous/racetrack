@@ -629,3 +629,8 @@ a.header-main:link, a.header-main:visited {
 #loginHeader a {
   color: #fff
 }
+
+#search {
+  float: right;
+  margin: 2em 1em;
+}
